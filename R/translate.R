@@ -1,10 +1,3 @@
-#' Transalte data
-#'
-#' @param spec_file a specification file that has the details of what data to
-#' translate and how to translate it.
-#'
-#' @return the data, translated
-#' @export
 translate <- function(spec_file) {
   spec <- yaml::read_yaml(spec_file)
   df <- suppressWarnings(eval(parse(text = spec$df$source)))

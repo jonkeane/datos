@@ -25,10 +25,18 @@ data_script <- function(script_path = "data/data.R",
     function(x)
       paste0(
         "delayedAssign('", anm[x], "',
-        translate(system.file('specs', '",
-        specs[x], "', package = 'datos')))"
+        eval(parse(text = \"datos:::translate(system.file('specs', '",
+        specs[x], "', package = 'datos'))\")))"
         ))
-  code <- as.character(code)
+
+  # if (is_test) {
+    translate_code <- ""
+    remove_translate <- ""
+  # } else {
+  # translate_code <- readLines("R/translate.R")
+  # remove_translate <- "rm(translate)"
+  # }
+  code <- c(translate_code, "", as.character(code), "", remove_translate)
   if (file.exists(script_path)) unlink(script_path, force = TRUE)
   writeLines(code, script_path)
 }

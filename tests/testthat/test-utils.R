@@ -8,7 +8,8 @@ test_that("Script generator works", {
   temp_file <- tempfile()
   data_script(
     script_path = temp_file,
-    spec_path = system.file("specs", package = "datos")
+    spec_path = system.file("specs", package = "datos"),
+    is_test = TRUE
   )
 
   expect_true(file.exists(temp_file))
