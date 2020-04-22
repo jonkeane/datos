@@ -25,7 +25,7 @@ data_script <- function(script_path = "data/data.R",
     function(x)
       paste0(
         "delayedAssign('", anm[x], "',
-        datos:::translate(system.file('specs', '",
+        translate(system.file('specs', '",
         specs[x], "', package = 'datos')))"
         ))
   code <- as.character(code)

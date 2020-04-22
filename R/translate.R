@@ -1,3 +1,10 @@
+#' Transalte data
+#'
+#' @param spec_file a specification file that has the details of what data to
+#' translate and how to translate it.
+#'
+#' @return the data, translated
+#' @export
 translate <- function(spec_file) {
   spec <- yaml::read_yaml(spec_file)
   df <- suppressWarnings(eval(parse(text = spec$df$source)))
@@ -32,6 +39,7 @@ translate <- function(spec_file) {
       from <- names(vars[[x]]$values)
       if (!is.null(from)) {
         to <- as.character(vars[[x]]$values[from])
+        Encoding(to) <- "UTF-8"
         if ("factor" %in% class(cl)) {
           lv <- levels(cl)
           for (i in seq_along(from)) {
